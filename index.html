@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>📚 My Library</h1>
+            </div>
+            <ul class="nav-buttons">
+                <!-- <li><a href="#">Home</a></li> -->
+                <li><a href="#">My Books</a></li>
+                <li><a href="#">Add Book</a></li>
+            </ul>
+            <div class="search">
+                <input type="text" placeholder="Search books..." id="search">
+                <button id="searchBtn" class="search-button">🔍</button>
+                <button id="clearBtn" class="clear-button">Clear</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <aside class="manage-library">
+                <h2 class="manage-logo">Manage Library</h2>
+                <div id="averageRating" class="average_rate">Середній рейтинг: 0</div>
+                <div class="manage-text">
+                    <h3>Count total pages:</h3>
+                    <button id="countPages" class="count-button">Count</button>
+                    <!-- <div class="divider"></div> -->
+                    <p class="total-pages">Total pages amount: <span id="totalPages">0</span></p>
+                </div>
+                <div class="divider"></div>
+                <p class="filter-word">Filter :</p>
+                <form id="sortForm" class="sort-form">
+                    <label class="custom-radio">
+                        <input type="radio" name="sort" value="rating" id="sortByRating">
+                        <span class="radio-custom"></span>
+                        Sort by Rating
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="sort" value="pages" id="sortByPages">
+                        <span class="radio-custom"></span>
+                        Sort by Pages
+                    </label>
+                    <button type="button" id="clearSortBtn" class="clear-sort-button">Cancel choice</button>
+                </form>
+            </aside>
+            <section class="library-cards">
+                <div class="book-card">
+                    <div class="book-cover"></div>
+                    <div class="book-details">
+                        <h2 class="book-title">The Great Gatsby</h2>
+                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
+                        <p><strong>Pages:</strong> 180</p>
+                        <p><strong>Rating:</strong> ★4.5</p>
+                    </div>
+                    <div class="buttons">
+                        <button class="edit">✏️ Edit</button>
+                        <button class="remove">🗑️ Remove</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 My Library. All rights reserved.</p>
+            <a href="#" class="contact-btn">Contact Us</a>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
