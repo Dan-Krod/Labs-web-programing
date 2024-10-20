@@ -8,6 +8,7 @@ html, body {
     height: 100%;
 }
 
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #ebe4d9;
@@ -271,6 +272,26 @@ main {
     transition: background-color 0.3s ease;
 }
 
+.edit img{
+    background-size: contain; /* Adjusts the size of the background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 30px; /* Set a width for the button */
+    height: 30px; /* Set a height for the button */
+    border: none; /* Remove border if you want */
+    cursor: pointer; /* Change cursor on hover */
+    align-items: center;
+}
+
+.remove img{
+    background-size: contain; /* Adjusts the size of the background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 30px; /* Set a width for the button */
+    height: 30px; /* Set a height for the button */
+    border: none; /* Remove border if you want */
+    cursor: pointer; /* Change cursor on hover */
+    align-items: center;
+}
+
 .buttons .edit:hover {
     background-color: #5cb319;
 }
@@ -287,6 +308,18 @@ main {
 
 .buttons .remove:hover {
     background-color: #911111;
+}
+
+.logo img{
+    background-size: contain; /* Adjusts the size of the background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 70px; /* Set a width for the button */
+    height: 70px; /* Set a height for the button */
+    border: none; /* Remove border if you want */
+    cursor: pointer; /* Change cursor on hover */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
 }
 
 footer {
