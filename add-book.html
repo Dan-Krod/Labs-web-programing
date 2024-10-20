@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <link rel="stylesheet" href="adding.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>
+                    <img src="./icons/world-book.png" alt="book-icon">
+                    My Library
+                </h1>
+            </div>
+            <ul><li><a href="./index.html">Home</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <section class="add-book-section">
+            <h1>Add a New Book</h1>
+
+            <form id="addBookForm" class="add-book-form">
+                <label for="title">Book Title:</label>
+                <input type="text" id="title" name="title" required placeholder="Enter book title">
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required placeholder="Enter author name">
+
+                <label for="pages">Number of Pages:</label>
+                <input type="number" id="pages" name="pages" required placeholder="Enter number of pages">
+
+                <!-- <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" step="0.1" min="1" max="5" required placeholder="Enter rating (1-5)"> -->
+
+                <label for="lastView">Last View:</label>
+                <input type="text" id="lastView" name="lastView" required placeholder="When did you last read this book?">
+
+                <label for="image">Book Cover URL:</label>
+                <input type="url" id="image" name="image" placeholder="Enter book cover image URL">
+
+                <button type="submit">Add Book</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="add-book.js"></script>
+</body>
