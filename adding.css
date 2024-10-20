@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ebe4d9;
+    color: #444;
+}
+
+html, body {
+    height: 100%;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ebe4d9;
+}
+
+header nav {
+    width: 100%;
+    background-color: #754f2e;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #000000;
+    padding: 1rem 2rem;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #f39c12;
+}
+
+.main-content {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.add-book-section {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 3px solid #3f2817;
+    margin: 20px auto; 
+}
+
+.add-book-section h1{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.add-book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-book-form label {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #4a392f;
+}
+
+.add-book-form input {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f6e1d2;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.add-book-form input:focus {
+    border-color: #f39c12;
+    outline: none;
+}
+
+.add-book-form button {
+    background-color: #f3ce93;
+    color: #6b5547;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-book-form button:hover {
+    background-color: #e67e22;
+}
+
+.logo img{
+    background-size: contain; /* Adjusts the size of the background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 70px; /* Set a width for the button */
+    height: 70px; /* Set a height for the button */
+    border: none; /* Remove border if you want */
+    cursor: pointer; /* Change cursor on hover */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
