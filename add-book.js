@@ -1,4 +1,4 @@
-document.getElementById("addBookForm").addEventListener("submit", function (event) {
+document.getElementById("addBookForm").addEventListener("submit", async function (event) { 
     event.preventDefault();
 
     const title = document.getElementById("title").value.trim();
@@ -33,37 +33,59 @@ document.getElementById("addBookForm").addEventListener("submit", function (even
     }
 
     if (isValid) {
-        let books = JSON.parse(localStorage.getItem("books")) || [];
 
-        const isDuplicate = books.some(book => book.title === title && book.author === author);
+        try {
+            const response = await fetch('http://localhost:3001/api/books');
+            if (!response.ok) {
+                throw new Error("Не вдалося отримати книги.");
+            }
+            const books = await response.json();
 
-        if (isDuplicate) {
-            alert("Ця книга вже додана.");
-            return; 
+            const isDuplicate = books.some(book => book.title === title && book.author === author);
+
+            if (isDuplicate) {
+                alert("Ця книга вже додана.");
+                return; 
+            }
+
+            const newBook = {
+                title: title,
+                author: author,
+                pages: pages,
+                rating: generateRandomRating(),
+                lastView: lastView,
+                image: image
+            };
+
+            try {
+                const addResponse = await fetch('http://localhost:3001/api/books', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newBook)
+                });
+
+                if (addResponse.ok) {
+                    alert("Книгу додано успішно!");
+                    window.location.href = "./index.html";
+                } else {
+                    console.error("Error adding book:", addResponse.status);
+                }
+            } catch (error) {
+                console.error("Error adding book:", error);
+            }
+        } catch (error) {
+            console.error("Error fetching books:", error);
         }
-
-        const newBook = {
-            title: title,
-            author: author,
-            pages: pages,
-            rating: generateRandomRating(),
-            lastView: lastView,
-            image: image
-        };
-
-        
-        books.push(newBook);
-        localStorage.setItem("books", JSON.stringify(books));
-        window.location.href = "./index.html";
     } else {
         alert(errorMessage);
     }
 });
 
 document.getElementById("pages").addEventListener("input", function () {
-    this.value = this.value.replace(/[^0-9]/g, '');  // Забороняє нечислові символи
+    this.value = this.value.replace(/[^0-9]/g, ''); 
 });
-
 
 function generateRandomRating(min = 1, max = 5) {
     return (Math.random() * (max - min) + min).toFixed(1); 
