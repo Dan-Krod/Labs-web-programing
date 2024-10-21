@@ -9,11 +9,27 @@
 //     { title: "Бібліотека душ", author: "Ренсом Ріггз", pages: 700, rating: 5.5, lastView: "2 year ago", image: "./images/library.jpg" },
 // ];
 
-let books = JSON.parse(localStorage.getItem("books")) || [
-    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", pages: 180, rating: 4.5, lastView: "3 month ago", image: "./images/great-gatsby.png" },
-    { title: "1984", author: "George Orwell", pages: 328, rating: 4.9, lastView: "1 day ago", image: "./images/1984.png" },
-    //... (other books)
-];
+// let books = JSON.parse(localStorage.getItem("books")) || [
+//     { title: "The Great Gatsby", author: "F. Scott Fitzgerald", pages: 180, rating: 4.5, lastView: "3 month ago", image: "./images/great-gatsby.png" },
+//     { title: "1984", author: "George Orwell", pages: 328, rating: 4.9, lastView: "1 day ago", image: "./images/1984.png" },
+//     //... (other books)
+// ];
+
+let books = []; 
+
+async function fetchBooks(search = '', sortBy = '', order = 'asc') {
+    try {
+        const response = await fetch(`http://localhost:3001/api/books?search=${search}&sortBy=${sortBy}&order=${order}`);
+        const data = await response.json();
+        console.log(data);  
+        books = data;
+        renderBooks(books);
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    }
+}
+
+fetchBooks();  
 
 const bookCardsContainer = document.querySelector(".library-cards");
 const averageRatingElement = document.getElementById("averageRating");
@@ -25,19 +41,15 @@ const countPagesBtn = document.getElementById("countPages");
 const clearSortBtn = document.getElementById("clearSortBtn");
 const searchBtn = document.getElementById("searchBtn");
 
-
-let filteredBooks = [...books];  
-let sortedBooks = [...books];    
-
 function renderBooks(books) {
-    bookCardsContainer.innerHTML = '';
+    bookCardsContainer.innerHTML = '';  
 
     books.forEach(book => {
         const card = createBookCard(book);
         bookCardsContainer.appendChild(card);
     });
 
-    const averageRating = calculateAverageRating(filteredBooks);
+    const averageRating = calculateAverageRating(books);
     averageRatingElement.textContent = `Середній рейтинг: ★ ${averageRating.toFixed(2)}`;
 }
 
@@ -55,122 +67,76 @@ function createBookCard(book) {
             <p class="last-view">Last view ${book.lastView}</p>
         </div>
         <div class="buttons">
-            <button class="edit">
-            <img src="./icons/pencil.png" alt="Edit" />
-            </button>
-            <button class="remove">
-            <img src="./icons/delete.png" alt="Remove" />
-            </button>
+            <button class="edit">✏️</button>
+            <button class="remove">🗑️</button>
         </div>
     `;
 
     card.innerHTML = cardContent;
 
-    card.querySelector(".remove").addEventListener("click", (event) => {
-        const bookIndex = filteredBooks.indexOf(book);
-        removeBook(bookIndex);
+    card.querySelector(".remove").addEventListener("click", () => {
+        removeBook(book.id);
     });
-// ✏️🗑️
-    card.querySelector(".edit").addEventListener("click", (_event) => {
-        localStorage.setItem('currentBook', JSON.stringify(book)); 
-        window.location.href = 'edit-book.html'; 
+
+    card.querySelector(".edit").addEventListener("click", () => {
+        window.location.href = `edit-book.html?id=${book.id}`; 
     });
-        
 
     return card;
 }
 
-function removeBook(index) {
-    books.splice(index, 1); 
-    filteredBooks = [...books];  
-    localStorage.setItem('books', JSON.stringify(books));
-    renderBooks(books);  
-}
-
-function sortBooks(field, descending = false) {
-    sortedBooks = [...filteredBooks].sort((a, b) => {
-        const aValue = typeof a[field] === 'number' ? a[field] : parseFloat(a[field]);
-        const bValue = typeof b[field] === 'number' ? b[field] : parseFloat(b[field]);
-
-        if (typeof aValue === 'string') {
-            return aValue.localeCompare(bValue);
-        } 
-        else if (typeof aValue === 'number') {
-            return descending ? bValue - aValue : aValue - bValue;
-        }
-    });
-
-    renderBooks(sortedBooks);
-}
-
-
-function searchBooks(query) {
-    const lowerCaseQuery = query.toLowerCase().trim();
-    filteredBooks = books.filter(book =>
-        book.title.toLowerCase().includes(lowerCaseQuery) ||
-        book.author.toLowerCase().includes(lowerCaseQuery)
-    );
-    renderBooks(filteredBooks);
-}
-
-function countTotalPages() {
-    return filteredBooks.reduce((total, book) => total + parseInt(book.pages, 10), 0);
+async function removeBook(id) {
+    try {
+        await fetch(`http://localhost:3001/api/books/${id}`, {
+            method: 'DELETE'
+        });
+        books = books.filter(book => book.id !== id);
+        renderBooks(books);
+    } catch (error) {
+        console.error('Error deleting book:', error);
+    }
 }
 
 function calculateAverageRating(books) {
     if (books.length === 0) return 0; 
-
-    const totalRating = books.reduce((total, book) => {
-        const rating = parseFloat(book.rating); 
-        if (isNaN(rating)) {
-            console.warn(`Invalid rating for book "${book.title}": ${book.rating}`);
-            return total; 
-        }
-        return total + rating;
-    }, 0);
-    
+    const totalRating = books.reduce((total, book) => total + parseFloat(book.rating), 0);
     return totalRating / books.length;
 }
 
+function countTotalPages() {
+    if (books.length === 0) return 0;
+    const totalPages = books.reduce((total, book) => total + parseInt(book.pages, 10), 0);
+    totalPagesElement.textContent = `${totalPages}`;
+}
 
 function handleSearch() {
-    searchBooks(searchInput.value);
+    const query = searchInput.value.trim().toLowerCase().replace(/\s+/g, '');  // Clean up search input
+
+    const selectedSort = document.querySelector('input[name="sort"]:checked')?.value || '';  // Check if sorting is selected
+
+    fetchBooks(query, selectedSort, 'desc');  // Pass search query and sorting to fetchBooks
 }
 
 function handleSort() {
-    const selectedSort = document.querySelector('input[name="sort"]:checked').value;
-    
-    if (selectedSort === 'rating') {
-        sortBooks('rating', true);
-    } else if (selectedSort === 'pages') {
-        sortBooks('pages', true);
-    } else {
-        renderBooks(filteredBooks);  
-    }
+    const selectedSort = document.querySelector('input[name="sort"]:checked')?.value || '';  
+    const query = searchInput.value.trim().toLowerCase().replace(/\s+/g, '');  // Also include current search query
+
+    fetchBooks(query, selectedSort, 'desc');  // Fetch with both search and sorting
 }
 
-searchBtn.addEventListener("click", () => {
-    handleSearch();
-});
-
-sortForm.addEventListener('change', handleSort);
-
-countPagesBtn.addEventListener("click", () => {
-    const totalPages = countTotalPages();
-    totalPagesElement.textContent = totalPages;
-});
+searchBtn.addEventListener("click", () => handleSearch());
+sortForm.addEventListener('change', () => handleSort());
+countPagesBtn.addEventListener("click", () => countTotalPages());
 
 clearBtn.addEventListener("click", () => {
-    searchInput.value = '';
-    filteredBooks = [...books];
-    sortedBooks = [...books];
-    renderBooks(books);
+    searchInput.value = '';  
+    fetchBooks();  // Clear search and fetch books without query
 });
 
 clearSortBtn.addEventListener("click", () => {
     const radioButtons = document.querySelectorAll('input[name="sort"]');
-    radioButtons.forEach(radio => radio.checked = false);
+    radioButtons.forEach(radio => radio.checked = false);  // Clear sorting
 
-    renderBooks(filteredBooks);
+    const query = searchInput.value.trim().toLowerCase().replace(/\s+/g, '');  // Retain current search query
+    fetchBooks(query, '', 'asc');  // Fetch with search but without sorting
 });
-renderBooks(books);
