@@ -1,0 +1,63 @@
+.header {
+  background: linear-gradient(to right, #4e3b31, #b48b40); /* Градієнт від темно-коричневого до темно-золотого */
+  color: #fff; /* Білий текст */
+  padding: 15px 0; /* Легке зменшення відступу */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+
+    overflow: hidden;
+  
+}
+
+.page-title {
+  background: linear-gradient(to right, #4e3b31, #b48b40); /* Світліший градієнт */
+  padding: 8px 10px; /* Легке зменшення внутрішніх відступів */
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border-bottom: #fffefd;
+}
+
+.page-title h2 {
+  color: #fffefd; /* Темно-коричневий текст для заголовка */
+  margin: 0;
+  font-size: 1.7rem; /* Легке зменшення шрифту */
+  font-family: 'Merriweather', serif; /* Шрифт заголовка */
+}
+
+.header-container {
+  display: flex;
+  justify-content: center; /* Центрування всіх елементів */
+  align-items: center; /* Вирівнювання по вертикалі */
+  padding: 70px 0;
+  padding-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-container {
+  position: absolute; /* Встановлюємо абсолютне позиціонування для логотипа */
+  left: 20px; /* Фіксуємо логотип зліва */
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  margin-left: 30px; /* Трішки зменшено лівий відступ */
+  height: 80px; /* Легке зменшення розміру логотипа */
+  width: 80px;
+  margin-right: 10px; /* Легке зменшення простору між логотипом і текстом */
+}
+
+.logo-text {
+  font-family: 'Merriweather', serif; /* Шрифт для тексту */
+  font-size: 2.5rem; /* Легке зменшення шрифту */
+  background: linear-gradient(to right, #f9f4de, #fee38b); /* Градієнт тексту */
+  background-clip: text;
+  color: transparent; /* Робимо текст прозорим, щоб був видимий градієнт */
+  margin-left: 1rem;
+}
