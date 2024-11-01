@@ -1,0 +1,124 @@
+
+.item-page {
+    max-width: 900px;
+    margin: 40px auto; 
+    padding: 40px;
+    background-color: #f5f0e8; 
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    border: 2px solid #b48b40; 
+  }
+  
+  .item-header {
+    display: flex;
+    gap: 40px; 
+    align-items: flex-start;
+  }
+  
+  .item-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 3px solid #b48b40; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .item-info {
+    flex: 1;
+  }
+  
+  .item-info h1 {
+    font-size: 2.2rem;
+    color: #4e3b31;
+    margin-bottom: 20px;
+    font-family: 'Merriweather', serif;
+  }
+  
+  .item-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .item-characteristics {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .characteristic {
+    background-color: #6ad46f; 
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .characteristic:hover {
+    background-color: #4e983f; 
+  }
+  
+  .item-fields {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .countable-field, 
+  .selectable-field {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #b48b40;
+    font-size: 1rem;
+    background-color: #fff8f0;
+    color: #4e3b31;
+    width: 180px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .countable-field:focus,
+  .selectable-field:focus {
+    border-color: #d49a6a;
+    box-shadow: 0 0 8px rgba(180, 139, 64, 0.5);
+  }
+  
+  .item-price {
+    font-size: 1.8rem;
+    color: #b48b40;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  .item-actions {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .item-actions button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .item-actions button:first-child {
+    background-color: #59a4c5;
+    color: white;
+  }
+  
+  .item-actions button:first-child:hover {
+    background-color: #8c8c8c;
+  }
+  
+  .item-actions button:last-child {
+    background-color: #6ad46f;
+    color: white;
+  }
+  
+  .item-actions button:last-child:hover {
+    background-color: #4e983f;
+  }
+  
