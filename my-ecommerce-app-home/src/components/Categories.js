@@ -1,54 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Categories.css';
+import Button from './ButtonComponent';
 
-const Categories = () => {
-  return(
-      <section className="categories">
-        <h2>Explore Our Categories</h2>
-        <div className="category-cards">
-          <div className="category-card">
-            <img src="books.jpg" alt="Books" className="category-image" />
-            <h3>Books</h3>
-            <p>Find the latest releases and bestsellers.</p>
+const Categories = ({ categories }) => {
+  const [showMoreCategories, setShowMoreCategories] = useState(false);
+
+  const visibleCategories = showMoreCategories ? categories : categories.slice(0, 2);
+
+  const handleViewMore = () => {
+    setShowMoreCategories(true);
+  };
+
+  const handleViewLess = () => {
+    setShowMoreCategories(false);
+  };
+
+  return (
+    <section className="categories">
+      <h2>Explore Our Categories</h2>
+      <div className="category-cards">
+        {visibleCategories.map((category) => (
+          <div key={category.id} className="category-card">
+            <img src={category.image} alt={category.title} className="category-image" />
+            <h3>{category.title}</h3>
+            <p>{category.description}</p>
             <ul>
-              <li>Fiction</li>
-              <li>Historical</li>
-              <li>Other...</li>
+              {category.items.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
             </ul>
           </div>
-          <div className="category-card">
-            <img src="audiobooks.jpg" alt="Audiobooks" className="category-image" />
-            <h3>Audiobooks</h3>
-            <p>Listen to your favorite books on the go.</p>
-            <ul>
-              <li>New Releases</li>
-              <li>Bestsellers</li>
-              <li>Exclusive Collections</li>
-            </ul>
-          </div>
-          <div className="category-card">
-            <img src="sign-writer.jpg" alt="Author Photos" className="category-image" />
-            <h3>Author signs</h3>
-            <p>Explore exclusive photographs of famous authors.</p>
-            <ul>
-              <li>Signed Photos</li>
-              <li>High-Quality Prints</li>
-              <li>Limited Editions</li>
-            </ul>
-          </div>
-          <div className="category-card">
-            <img src="book-event.jpg" alt="Book Events" className="category-image" />
-            <h3>Book Events</h3>
-            <p>Buy tickets to upcoming book events and meetings.</p>
-            <ul>
-              <li>Meet & Greet Events</li>
-              <li>Book Signings</li>
-              <li>Author Talks</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
+
+      {!showMoreCategories ? (
+        <Button label="View More" onClick={handleViewMore} />
+      ) : (
+        <Button label="View Less" onClick={handleViewLess} />
+      )}
+    </section>
   );
 };
-export default Categories;
 
+export default Categories;

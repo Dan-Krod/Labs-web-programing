@@ -14,7 +14,7 @@ const Footer = () => {
           </p>
         </div>
         <div className="logo">
-          <img src="/logo.png" alt="Logo" className="logo-img" />
+          <img src="/logo-3.png" alt="Logo" className="logo-img" />
         </div>
         <div className="social-links">
           <a href="/facebook" className="social-link" aria-label="Facebook"><i className="fab fa-facebook-f"><img src="/facebook.png" alt="Link" className="link-img" /></i></a>
