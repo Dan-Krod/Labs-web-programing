@@ -1,15 +1,27 @@
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import '../styles/NavigationComponent.css';
 
 const Navigation = () => {
-  return(
-    <nav className="nav-bar">
-      <ul className="nav-buttons">
-        <li><a href="/home" className="nav-link active">Home</a></li>
-        <li><a href="/catalog" className="nav-link">Catalog</a></li>
-        <li><a href="/cart" className="nav-link">Cart</a></li>
-      </ul>
+  const location = useLocation();
+
+  return (
+    <nav className="navigation">
+      <NavLink to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+        Home
+      </NavLink>
+      <NavLink 
+        to="/catalog" 
+        className={`nav-link ${(location.pathname === '/catalog' || location.pathname.startsWith('/item')) ? 'active' : ''}`}
+      >
+        Catalog
+      </NavLink>
+      <NavLink to="/cart" className={`nav-link ${location.pathname === '/cart' ? 'active' : ''}`}>
+        Cart
+      </NavLink>
     </nav>
   );
 };
+
 export default Navigation;
+

@@ -1,6 +1,6 @@
 .view-more-button-container {
   padding: 50px 0;
-  background-color: #f5f0e8; /* Світлий фон для контейнера кнопки */
+  background-color: #f5f0e8; 
   display: flex;
   justify-content: center; 
   align-items: center;
@@ -9,26 +9,26 @@
 }
 
 .view-more-button {
-  background-color: #961414; /* Основний колір кнопки */
+  background-color: #961414; 
   color: white; 
   padding: 20px 80px;
-  border: 2px solid #961414; /* Темніша межа */
-  border-radius: 25px; /* Закруглені кути */
+  border: 2px solid #961414; 
+  border-radius: 25px; 
   cursor: pointer;
-  font-size: 1.2rem; /* Збільшений розмір шрифту */
+  font-size: 1.2rem; 
   font-weight: bold;
   text-align: center;
-  transition: all 0.4s ease; /* Плавний перехід для всіх властивостей */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Легка тінь */
+  transition: all 0.4s ease; 
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); 
   position: relative;
   overflow: hidden;
   display: inline-block; 
 }
 
 .view-more-button:hover {
-  background-color: #961414; /* Світліший відтінок при наведенні */
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Посилена тінь при наведенні */
-  transform: translateY(-5px); /* Легкий підйом кнопки при наведенні */
+  background-color: #961414; 
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); 
+  transform: translateY(-5px); 
 }
 
 .view-more-button::before {
@@ -38,22 +38,22 @@
   left: 50%;
   width: 300%;
   height: 300%;
-  background-color: rgba(255, 255, 255, 0.1); /* Легка напівпрозорість */
-  transform: translate(-50%, -50%) rotate(45deg); /* Обертання для кращого ефекту */
+  background-color: rgba(255, 255, 255, 0.1); 
+  transform: translate(-50%, -50%) rotate(45deg); 
   transition: all 0.5s ease;
-  z-index: 0; /* Розташування позаду тексту */
+  z-index: 0; 
   border-radius: 50%;
-  opacity: 0; /* Невидимий стан */
+  opacity: 0; 
 }
 
 .view-more-button:hover::before {
-  width: 110%; /* Зменшена ширина */
-  height: 110%; /* Зменшена висота */
-  opacity: 1; /* Показати при наведенні */
-  background-color: rgba(255, 255, 255, 0.2); /* Світліша напівпрозорість при наведенні */
+  width: 110%; 
+  height: 110%; 
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.2); 
 }
 
 .view-more-button span {
   position: relative;
-  z-index: 1; /* Розташування поверх фонового шару */
+  z-index: 1; 
 }

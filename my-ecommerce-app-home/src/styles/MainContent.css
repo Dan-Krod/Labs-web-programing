@@ -1,28 +1,28 @@
 main {
   padding: 60px 20px;
-  background-color: #f5f0e8; /* М'який фон для основного контенту */
+  background-color: #f5f0e8; 
 }
 
 .banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to right, #c6a057, #f9f5e8); /* Градієнт від темно-золотого до світло-кремового */
+  background: linear-gradient(to right, #c6a057, #f9f5e8); 
   padding: 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Легка тінь */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
   border-radius: 15px;
 }
 
 .banner-text {
-  max-width: 60%; /* Встановлено ширину для тексту */
+  max-width: 60%; 
   text-align: left;
 }
 
 .banner-text h2 {
   font-size: 4rem;
-  color: #4e3b31; /* Темно-коричневий текст */
+  color: #4e3b31;
   margin-bottom: 20px;
-  font-family: 'Merriweather', serif; /* Шрифт заголовка */
+  font-family: 'Merriweather', serif; 
 }
 
 .banner-text p {
@@ -34,28 +34,28 @@ main {
 
 .fun-fact {
   width: 90%;
-  background-color: rgba(103, 87, 25, 0.479); /* Напівпрозорий темно-золотий фон */
+  background-color: rgba(103, 87, 25, 0.479); 
   padding: 15px;
   border-radius: 10px;
   font-size: 1.1rem;
-  color: #b8aca3; /* Темно-золотий текст */
+  color: #b8aca3; 
   font-weight: bold;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Плавний перехід */
+  transition: transform 0.3s ease, opacity 0.3s ease; 
 }
 
 .fun-fact:hover {
-  transform: translateY(-10px); /* Піднімаємо елемент при наведенні */
-  opacity: 1; /* Робимо його більш видимим */
+  transform: translateY(-10px); 
+  opacity: 1; 
 }
 
 .banner-image {
-  max-width: 40%; /* Встановлено ширину для зображення */
-  margin-left: 20px; /* Вирівнювання зображення до тексту */
+  max-width: 40%; 
+  margin-left: 20px; 
 }
 
 .banner-image img {
   width: 80%;
   height: 80%;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Тінь для зображення */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }

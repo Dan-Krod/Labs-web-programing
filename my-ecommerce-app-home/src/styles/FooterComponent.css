@@ -1,72 +1,73 @@
 .footer {
   background: linear-gradient(to right, #4e3b31, #b48b40);
-  color: #f8f3f0; /* Світлий текст */
-  padding: 40px 20px; /* Відступи */
-  text-align: center; /* Центрування тексту */
+  color: #f8f3f0; 
+  padding: 7px 20px; 
+  text-align: center; 
 }
 
 .footer-container {
   display: flex;
-  justify-content: space-between; /* Розподіл простору між колонками */
-  align-items: flex-start; /* Вирівнювання елементів по верху */
+  justify-content: space-between; 
+  align-items: flex-start; 
 }
 
 .branding,
 .logo,
 .social-links {
-  flex: 1; /* Вирівнюємо три колонки з однаковою шириною */
-  margin: 0 10px; /* Відступи між колонками */
+  flex: 1; 
+  margin: 0 10px;
 }
 
 .branding h3 {
-  font-size: 1.8rem; /* Розмір заголовка */
-  margin-bottom: 10px; /* Відступ знизу */
+  font-size: 1.5rem; 
+  margin-bottom: 10px; 
 }
 
 .branding p {
-  font-size: 1rem; /* Розмір тексту */
-  color: #ddd; /* Світлий текст */
+  font-size: 0.8rem; 
+  color: #ddd; 
 }
 
 .logo img {
-  height: 100px;
-  width: 100px; /* Фіксований розмір логотипу */
+  margin-top: 40px;
+  height: 80px;
+  width: 80px; 
 }
 
 .social-links {
+  margin-top: 50px;
   display: flex;
-  justify-content: flex-end; /* Вирівнювання іконок вправо */
-  gap: 15px; /* Проміжок між іконками */
+  justify-content: flex-end; 
+  gap: 15px; 
 }
 
 .social-link {
-  color: #f8f3f0; /* Білий колір для іконок */
-  font-size: 1.5rem; /* Розмір іконок */
-  transition: color 0.3s ease; /* Плавний перехід кольору */
+  color: #f8f3f0; 
+  font-size: 1.5rem;
+  transition: color 0.3s ease; 
 }
 
 .social-link:hover {
-  color: #c69c6d; /* Колір при наведенні */
+  color: #c69c6d; 
 }
 
 .social-link img {
-  height: 40px; /* Фіксований розмір іконок */
-  width: 40px; /* Фіксований розмір іконок */
+  height: 30px; 
+  width: 30px; 
 }
 
 .footer-bottom {
-  margin-top: 20px; /* Відступ зверху */
-  text-align: center; /* Вирівнювання тексту в центрі для копірайту */
+  margin-top: 20px; 
+  text-align: center; 
 }
 
 .footer-bottom p {
-  font-size: 0.9rem; /* Розмір тексту для копірайту */
-  color: #ddd; /* Світлий текст для копірайту */
+  font-size: 0.9rem; 
+  color: #ddd; 
 }
 
-/* Додайте стиль для риски */
 .footer-divider {
   border: none;
-  border-top: 1px solid #e0e0e0; /* Колір та стиль риски */
-  margin: 20px 0; /* Відступи зверху та знизу */
+  border-top: 1px solid #e0e0e0; 
+  margin: 20px 0; 
 }

@@ -1,14 +1,16 @@
 import React from 'react';
 import '../styles/ButtonComponent.css';
 
-const Button = ({ label }) => {
+const Button = ({ label, onClick }) => {  
   return (
-    <div class='view-more-button-container'>
-    <button className="view-more-button">
-      {label}
-    </button>
+    <div className="view-more-button-container">
+      <button className="view-more-button" onClick={onClick}>  
+        {label}
+      </button>
     </div>
   );
 };
 
 export default Button;
+
+
