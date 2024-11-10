@@ -38,9 +38,9 @@ function App() {
 }
 
 const RootApp = () => (
-  <Router>
-    <App />
-  </Router>
+    <Router>
+      <App />
+    </Router>
 );
 
 export default RootApp;
