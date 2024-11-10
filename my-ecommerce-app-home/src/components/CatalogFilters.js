@@ -1,7 +1,7 @@
 // CatalogFilters.js
 import React from 'react';
 import SelectFilter from './SelectFilter';
-import PrimaryButton from './PrimaryButton';
+// import PrimaryButton from './PrimaryButton';
 
 const CatalogFilters = ({ 
   selectedCategory, 
@@ -51,9 +51,10 @@ const CatalogFilters = ({
       </div>
 
       <div className="filter-buttons">
-        <PrimaryButton label="Apply" onClick={handleApplyFilters} />
+        {/* <PrimaryButton label="Apply" onClick={handleApplyFilters} /> */}
         <button className="reset-button" onClick={resetFilters}>
-          &#x2715;
+          Cancel
+          {/* &#x2715; */}
         </button>
       </div>
     </div>
