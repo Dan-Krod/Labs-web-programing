@@ -1,4 +1,4 @@
-import { ADD_ITEM, REMOVE_ITEM, MODIFY_QUANTITY } from './cartAction';
+import { ADD_ITEM, REMOVE_ITEM, MODIFY_QUANTITY, EMPTY_CART } from './cartAction';
 
 const initialState = {
   cart: [],
@@ -69,6 +69,12 @@ const rootReducer = (state = initialState, action) => {
             ? { ...item, quantity: action.payload.quantity }
             : item
         ),
+      };
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: [],
       };
 
     default:
