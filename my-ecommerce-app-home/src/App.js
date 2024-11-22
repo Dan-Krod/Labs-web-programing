@@ -8,6 +8,8 @@ import CategoriesContainer from './components/CategoriesContainer';
 import CatalogPage from './components/CatalogPage'; 
 import ItemPage from './components/ItemPage'; 
 import CartPage from './components/CartPage';
+import CheckoutPage from './components/CheckoutPage'
+import SuccessPage from './components/SuccessPage'
 import './App.css'; 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
 
         <Route path="/cart" element={<CartPage />} />
 
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
