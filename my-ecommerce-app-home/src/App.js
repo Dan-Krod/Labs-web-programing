@@ -7,6 +7,7 @@ import MainContent from './components/MainContent';
 import CategoriesContainer from './components/CategoriesContainer';
 import CatalogPage from './components/CatalogPage'; 
 import ItemPage from './components/ItemPage'; 
+import CartPage from './components/CartPage';
 import './App.css'; 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Route path="/catalog" element={<CatalogPage searchTerm={searchTerm} setSearchTerm={setSearchTerm} />} />
 
         <Route path="/item/:id" element={<ItemPage />} />
+
+        <Route path="/cart" element={<CartPage />} />
 
         <Route path="/home" element={<Navigate to="/" replace />} />
       </Routes>
