@@ -62,4 +62,3 @@ const CatalogFilters = ({
 };
 
 export default CatalogFilters;
-
