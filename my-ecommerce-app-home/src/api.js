@@ -1,42 +1,34 @@
-// src/api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api/products'; 
+const API_BASE_URL = 'http://localhost:3001/api';
 
-// Oтримання продуктів з параметрами пошуку, сортування та фільтрації
-export const fetchProducts = async (search = '', sortCriteria = '', sortOrder = '', category = '') => {
-    try {
-        const params = {};
-        if (search) params.search = search;
-        if (sortCriteria) params.sortCriteria = sortCriteria;
-        if (sortOrder) params.sortOrder = sortOrder;
-        if (category) params.category = category;
 
-        const response = await axios.get(API_URL, { params });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching products:", error);
-        throw error;
-    }
-};
+export const fetchProducts = async (category = '', search = '', sort = '', order = 'asc') => {
+  const params = {};
+  if (category) params.category = category;
+  if (search) params.search = search;
+  if (sort) params.sort = sort;
+  if (order) params.order = order;
 
-// Пошук продуктів
-export const searchProducts = async (search) => {
-    try {
-        const response = await axios.get(`${API_URL}/search`, { params: { search } });
-        return response.data;
-    } catch (error) {
-        console.error("Error searching products:", error);
-        throw error; 
-    }
+  const response = await axios.get(`${API_BASE_URL}/items`, { params });
+  return response.data;
 };
 
 export const fetchProductById = async (id) => {
-    try {
-        const response = await axios.get(`${API_URL}/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching product by ID:", error);
-        throw error;
-    }
+  try {
+      const response = await axios.get(`${API_BASE_URL}/items/${id}`);
+      return response.data; 
+  } catch (error) {
+      console.error("Error fetching product by ID:", error);
+      throw error;
+  }
 };
+
+
+// Функція для отримання додаткової інформації про продукт
+export const fetchMoreInfo = async (productId) => {
+  const response = await axios.get(`${API_BASE_URL}/items/${productId}/more-info`);
+  return response.data; 
+};
+
+
