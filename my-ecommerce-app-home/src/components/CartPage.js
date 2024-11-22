@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchProducts, removeItem, modifyQuantity } from '../redux/cartAction';
 import "../styles/CartPage.css";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProducts()); 
@@ -48,9 +50,16 @@ const CartPage = () => {
 
       {cart.length === 0 ? (
         <div className="empty-cart-message">
-          <p>Your cart is empty</p>
+            <span className="sad-face">😔</span>
+            <p>Your cart is empty!</p>
+            <button 
+              className="empty-cart-back-btn" 
+              onClick={() => navigate('/catalog')}
+            >
+              Back to Catalog
+            </button>
         </div>
-      ) : (
+    ) : (
         <div className="cart-items">
           {cart.map((item) => (
             <div key={item.id + item.selectedOption} className="cart-item">
@@ -78,7 +87,6 @@ const CartPage = () => {
                 </div>
               </div>
               <button className="remove-button" onClick={() => handleRemoveItem(item.id, item.selectedOption)}>
-                {/* &#x2715; */}
                 Remove
               </button>
             </div>
@@ -88,7 +96,7 @@ const CartPage = () => {
 
       <div className="cart-summary">
         <p>Total amount: <strong>${calculateTotalAmount()}</strong></p>
-        <button className="checkout-button">Continue</button>
+        <button className="checkout-button" onClick={() => navigate('/checkout')}>Continue</button>
       </div>
     </div>
   );
