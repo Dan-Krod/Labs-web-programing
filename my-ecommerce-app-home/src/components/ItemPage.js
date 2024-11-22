@@ -1,107 +1,132 @@
-// ItemPage.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../redux/cartAction';
 import { fetchProductById } from '../api';
-import '../styles/ItemPage.css';
+import "../styles/ItemPage.css";
 
 const ItemPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [deliveryOption, setDeliveryOption] = useState('');
-  const [packagingDetails, setPackagingDetails] = useState('');
-  const [packagingType, setPackagingType] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
+  const [error, setError] = useState(""); 
+  const [successMessage, setSuccessMessage] = useState(""); 
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const loadProduct = async () => {
       try {
-        const productData = await fetchProductById(id);
-        if (productData) {
-          setProduct(productData);
-        } else {
-          console.error("Product not found");
-        }
+        const data = await fetchProductById(id);
+        setProduct(data); 
       } catch (error) {
-        console.error("Failed to fetch product details:", error);
+        console.error("Error loading product:", error);
       }
     };
-    fetchProduct();
+    loadProduct();
   }, [id]);
 
-  const handleQuantityChange = (e) => setQuantity(parseInt(e.target.value, 10));
-  const handleDeliveryChange = (e) => {
-    setDeliveryOption(e.target.value);
-    setPackagingDetails('');
-    setPackagingType('');
+  if (!product) {
+    return <p>Product not found</p>;
+  }
+
+  const handleQuantityChange = (e) => {
+    const value = Math.min(e.target.value, product.selectableOptions.find(option => option.value === selectedOption)?.quantity);
+    setQuantity(value);
   };
 
-  const renderPackagingFields = () => {
-    if (deliveryOption === 'Standard' || deliveryOption === 'Express') {
-      return (
-        <>
-          <input
-            type="text"
-            className="countable-field"
-            placeholder="Enter packaging details"
-            value={packagingDetails}
-            onChange={(e) => setPackagingDetails(e.target.value)}
-          />
-          <select
-            className="selectable-field"
-            value={packagingType}
-            onChange={(e) => setPackagingType(e.target.value)}
-          >
-            <option value="">Select packaging</option>
-            <option value="basic">Basic Packaging</option>
-            <option value="gift">Gift Packaging</option>
-          </select>
-        </>
-      );
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+    if (e.target.value) {
+      setError(""); // Очищення повідомлення про помилку при виборі опції
     }
-    return null;
   };
 
-  if (!product) return <p>Loading...</p>;
+  const handleAddToCart = () => {
+    if (product.selectableOptions?.length > 0 && !selectedOption) {
+      setError("Please select an option before adding to cart!");
+      return;
+    }
+
+    const selectedOptionDetails = product.selectableOptions.find(option => option.value === selectedOption);
+    if (selectedOptionDetails && quantity > selectedOptionDetails.quantity) {
+      setError(`Only ${selectedOptionDetails.quantity} items available.`);
+      return;
+    }
+
+    const itemToAdd = {
+      ...product,
+      quantity,
+      selectedOption,
+      maxQuantity: selectedOptionDetails?.quantity, 
+    };
+    dispatch(addItem(itemToAdd));
+
+    setSuccessMessage(`"${product.name}" added to cart!`);
+    setError(""); // Очищення помилок після успішного додавання до кошика
+    
+    setTimeout(() => setSuccessMessage(""), 3000);
+  };
+
+  const selectedOptionDetails = product.selectableOptions?.find(option => option.value === selectedOption);
 
   return (
     <div className="item-page">
-      <div className="item-header">
-        <img 
-          src={product.image_url ? `/${product.image_url}` : '/default.jpg'} 
-          alt={product.name} 
-          className="item-image" 
-        />
-        <div className="item-info">
-          <h1>{product.name}</h1>
-          <p className="item-description">{product.description}</p>
-          <div className="item-fields">
-            <input
-              type="number"
-              className="countable-field"
-              value={quantity}
-              onChange={handleQuantityChange}
-              placeholder="Enter quantity"
-              min="1"
+      <div className="product-image-container">
+        <img src={product.image_url ? `/${product.image_url}` : '/default.jpg'}  alt={product.name} className="product-image" />
+      </div>
+      <div className="product-info">
+        <h1>{product.name}</h1>
+        <p className="description">{product.description}</p>
+        <p className="category">Category: {product.category}</p>
+
+        <div className="fields">
+          <div className="field">
+            <label>Amount</label>
+            <input 
+              type="number" 
+              value={quantity} 
+              onChange={handleQuantityChange} 
+              min="1" 
+              max={selectedOptionDetails?.quantity}  
+              placeholder="1" 
             />
-            <select
-              className="selectable-field"
-              value={deliveryOption}
-              onChange={handleDeliveryChange}
-            >
-              <option value="">Select Delivery Option</option>
-              <option value="Standard">Standard</option>
-              <option value="Express">Express</option>
-            </select>
           </div>
-          {renderPackagingFields()}
-          <p className="item-price">Price: ${product.price}</p>
-          <div className="item-actions">
-            <button onClick={() => navigate(-1)}>Go back</button>
-            <button>Add to cart</button>
+
+          {product.selectableOptions?.length > 0 && (
+            <div className="field">
+              <label>Your choice?</label>
+              <select value={selectedOption} onChange={handleOptionChange}>
+                <option value="">Select</option>
+                {product.selectableOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label} - {option.quantity} available
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+
+        {error && <p className="error-message">{error}</p>}
+
+        {selectedOptionDetails && (
+          <p className="availability-message">
+            Available for selected option: {selectedOptionDetails.quantity} items
+          </p>
+        )}
+
+        <div className="price-and-buttons">
+          <p className="product-price">Price: ${product.price}</p>
+          <div className="buttons">
+            <button className="buy-button" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
           </div>
         </div>
+        
+        {successMessage && <div className="success-message">{successMessage}</div>}
       </div>
     </div>
   );
