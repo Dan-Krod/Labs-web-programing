@@ -14,7 +14,7 @@ const CatalogItem = ({ product, onViewDetails }) => {
       />
       <h2>{product.name}</h2>
       <p className="catalog-item-description">{product.description}</p>
-      <p className="catalog-item-additional">{product.additionalInfo}</p>
+      <p className="catalog-item-additional">{product.additional_info}</p>
       <p className="catalog-item-price">Price: ${product.price}</p>
       <PrimaryButton 
         className="primary-button" 
