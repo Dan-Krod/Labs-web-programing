@@ -93,15 +93,13 @@ const seedDatabase = () => {
         { label: 'Paperback', value: 'paperback', quantity: 30 },
         { label: 'E-book', value: 'ebook', quantity: 50 }
     ]);
-
-    // Квитки на літературний фестиваль
+    
     insertProduct('Literary Festival Ticket', 'Access to a three-day literary festival.', 50, 'Book Events', 'Date: July 15-17, 2024', 'book-event.jpg', [
         { label: 'General Admission', value: 'general', quantity: 100 },
         { label: 'VIP Access', value: 'vip', quantity: 20 },
         { label: 'Online Streaming', value: 'online', quantity: 50 }
     ]);
-
-    // Підписка на аудіокниги
+    
     insertProduct('Audiobook Subscription', 'Monthly subscription for unlimited audiobooks.', 20, 'Audiobooks', 'Duration: 1 month', 'audiobooks.jpg', [
         { label: '1 Month', value: '1_month', quantity: 200 },
         { label: '3 Months', value: '3_months', quantity: 150 },
@@ -135,6 +133,7 @@ const seedDatabase = () => {
         { label: 'Hardcover', value: 'hardcover', quantity: 50 },
         { label: 'Paperback', value: 'paperback', quantity: 30 }
     ]);
+    
 };
 
 seedDatabase()
