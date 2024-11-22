@@ -1,102 +1,105 @@
-// CatalogPage.js
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CatalogFilters from './CatalogFilters'; 
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import CatalogFilters from './CatalogFilters';
 import CatalogItem from './CatalogItem';
+import ItemPage from './ItemPage';
 import { fetchProducts } from '../api'; 
-import Loader from './Loader';
+import Loader from './Loader'; 
 import '../styles/Catalog.css';
 
 const CatalogPage = ({ searchTerm, setSearchTerm }) => {
+  const [products, setProducts] = useState([]); 
+  const [filteredProducts, setFilteredProducts] = useState([]); 
+  const [loading, setLoading] = useState(true); 
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [sortCriteria, setSortCriteria] = useState(''); 
+  const [sortOrder, setSortOrder] = useState('asc'); 
   const navigate = useNavigate();
 
-  const getProducts = useCallback(async () => {
+  const loadProducts = useCallback(async () => {
     setLoading(true);
-
-    const params = {
-        search: searchTerm || '',
-        category: selectedCategory || '',
-        sortCriteria: sortCriteria || '',
-        sortOrder: sortOrder || 'asc',
-    };
-
-    Object.keys(params).forEach(key => {
-        if (!params[key]) delete params[key];
-    });
-
-    console.log("Fetching products with parameters:", params);
-
     try {
-        const products = await fetchProducts(params.search, params.sortCriteria, params.sortOrder, params.category);
-        setFilteredProducts(products);
-        console.log("Products fetched:", products);
+      const data = await fetchProducts(selectedCategory, searchTerm, sortCriteria, sortOrder);
+      setProducts(data);
+      setFilteredProducts(data);
+      setLoading(false);
     } catch (error) {
-        console.error("Failed to fetch products:", error);
-    } finally {
-        setTimeout(() => setLoading(false), 500);
+      console.error('Помилка завантаження продуктів:', error);
+      setLoading(false);
     }
-}, [searchTerm, selectedCategory, sortCriteria, sortOrder]);
-
-
+  }, [selectedCategory, searchTerm, sortCriteria, sortOrder]);
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]); 
+    loadProducts();
+  }, [loadProducts]); 
 
-  const handleApplyFilters = () => {
-    console.log("Applying filters...");
-    getProducts(); 
-  };
+  const handleFilterChange = useCallback(() => {
+    let updatedProducts = [...products];
+
+    if (selectedCategory) {
+      updatedProducts = updatedProducts.filter(product => product.category === selectedCategory);
+    }
+
+    if (searchTerm) {
+      updatedProducts = updatedProducts.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(updatedProducts);
+  }, [products, selectedCategory, searchTerm]);
+
+  useEffect(() => {
+    handleFilterChange();
+  }, [selectedCategory, searchTerm, handleFilterChange]);
 
   const resetFilters = () => {
-    console.log("Resetting filters...");
     setSelectedCategory('');
+    setSearchTerm('');
     setSortCriteria('');
     setSortOrder('asc');
-    setSearchTerm('');
-    
-    getProducts(); 
+    setFilteredProducts(products);
   };
 
   const viewProductDetails = (product) => {
     navigate(`/item/${product.id}`, { state: { product } });
   };
 
-
-  if (loading) {
-    return (
-      <div className="loader-container">
-        <Loader />
-      </div>
-    );
-  }
-
   return (
-    <div className="catalog">
-      <CatalogFilters
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        sortCriteria={sortCriteria}
-        setSortCriteria={setSortCriteria}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        handleApplyFilters={handleApplyFilters}
-        resetFilters={resetFilters}
+    <Routes>
+      <Route 
+        path="/" 
+        element={
+          <div className="catalog">
+            {loading ? (
+              <Loader /> 
+            ) : (
+              <>
+                <CatalogFilters
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  sortCriteria={sortCriteria}
+                  setSortCriteria={setSortCriteria}
+                  sortOrder={sortOrder}
+                  setSortOrder={setSortOrder}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  resetFilters={resetFilters} 
+                />
+                <div className="divider"></div>
+
+                <div className="catalog-items">
+                  {filteredProducts.map((product) => (
+                    <CatalogItem key={product.id} product={product} onViewDetails={viewProductDetails} />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        } 
       />
-
-      <div className="divider"></div>
-
-      <div className="catalog-items">
-        {filteredProducts.map((product) => (
-          <CatalogItem key={product.id} product={product} onViewDetails={viewProductDetails} />
-        ))}
-      </div>
-    </div>
+      <Route path="/item/:id" element={<ItemPage products={products} />} />
+    </Routes>
   );
 };
 
