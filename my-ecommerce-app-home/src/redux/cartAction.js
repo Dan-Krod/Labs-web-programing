@@ -6,7 +6,11 @@ export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 export const PRODUCTS_FAILURE = 'PRODUCTS_FAILURE';
 export const SET_ERROR = 'SET_ERROR';
+export const EMPTY_CART = 'EMPTY_CART';
 
+export const emptyCart = () => ({
+  type: EMPTY_CART,
+});
 
 export const addItem = (product) => {
   return (dispatch, getState) => {
