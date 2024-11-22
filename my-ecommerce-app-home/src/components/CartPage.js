@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchProducts, removeItem, modifyQuantity } from '../redux/cartAction';
 import "../styles/CartPage.css";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProducts()); 
@@ -48,8 +50,15 @@ const CartPage = () => {
 
       {cart.length === 0 ? (
         <div className="empty-cart-message">
-          <p>Your cart is empty</p>
-        </div>
+        <span className="sad-face">😔</span>
+        <p>Your cart is empty!</p>
+        <button 
+          className="empty-cart-back-btn" 
+          onClick={() => navigate('/catalog')}
+        >
+          Back to Catalog
+        </button>
+    </div>
       ) : (
         <div className="cart-items">
           {cart.map((item) => (
