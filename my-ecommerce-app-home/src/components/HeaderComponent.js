@@ -13,6 +13,8 @@ const Header = ({ searchTerm, setSearchTerm }) => {
     pageTitle = 'Catalog Page';
   } else if (location.pathname.startsWith('/item')) {
     pageTitle = 'Item Page';
+  } else if (location.pathname.startsWith('/cart')) {
+    pageTitle = 'Cart Page'
   }
 
   return (
